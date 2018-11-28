@@ -20,7 +20,7 @@ public class Drive extends LinearOpMode {
             robot.respondToLeftTrigger(leftTriggerResponseType, gamepad1.left_trigger);
 
             telemetry.addData("Runtime: ", robot.runtime);
-            telemetry.update();
+            telemetry.update();//github test 2
         }
     }
 }
