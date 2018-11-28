@@ -1,27 +1,30 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-enum RightTriggerResponseType {
-    RIGHT_SIDE_POWERED_POSITIVE, RIGHT_SIDE_POWERED_NEGATIVE, STRAFE_FORWARD_RIGHT_POSITIVE, STRAFE_BACKWARD_RIGHT_NEGATIVE
-}
-enum LeftTriggerResponseType {
-    LEFT_SIDE_POWERED_POSITIVE, LEFT_SIDE_POWERED_NEGATIVE, STRAFE_FORWARD_LEFT_POSITIVE, STRAFE_BACKWARD_LEFT_NEGATIVE
-}
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class Robot{
     ElapsedTime runtime = new ElapsedTime();
 
-    private DcMotor frontLeftDrive;
-    private DcMotor frontRightDrive;
-    private DcMotor backLeftDrive;
-    private DcMotor backRightDrive;
+    private BNO055IMU imu;
+    private Orientation orientation = new Orientation(); //gyro
+
+    RobotDrive drive;
+
+    double pi = 3.1415926535897932384626433832795028841971693993751058209;
 
     // Constructor
     Robot(HardwareMap map) {
+        DcMotor frontLeftDrive;
+        DcMotor frontRightDrive;
+        DcMotor backLeftDrive;
+        DcMotor backRightDrive;
+
         frontLeftDrive = map.dcMotor.get("front_left_drive");
         backLeftDrive = map.dcMotor.get("back_left_drive");
         frontRightDrive = map.dcMotor.get("front_right_drive");
@@ -42,66 +45,7 @@ public class Robot{
         backLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
         backRightDrive.setPower(0);
-    }
 
-    void respondToRightTrigger(RightTriggerResponseType rt, double powerLevel) {
-        powerLevel = Math.abs(powerLevel)/2;
-        switch(rt) {
-            case RIGHT_SIDE_POWERED_NEGATIVE:
-                frontRightDrive.setPower(-powerLevel);
-                backRightDrive.setPower(-powerLevel);
-            case RIGHT_SIDE_POWERED_POSITIVE:
-                frontRightDrive.setPower(powerLevel);
-                backRightDrive.setPower(powerLevel);
-            case STRAFE_FORWARD_RIGHT_POSITIVE:
-                frontLeftDrive.setPower(powerLevel);
-                backRightDrive.setPower(powerLevel);
-            case STRAFE_BACKWARD_RIGHT_NEGATIVE:
-                frontLeftDrive.setPower(-powerLevel);
-                backRightDrive.setPower(-powerLevel);
-        }
-    }
-
-    void respondToLeftTrigger(LeftTriggerResponseType lt, double powerLevel) {
-        powerLevel = Math.abs(powerLevel)/2;
-        switch(lt) {
-            case LEFT_SIDE_POWERED_NEGATIVE:
-                frontLeftDrive.setPower(-powerLevel);
-                backLeftDrive.setPower(-powerLevel);
-            case LEFT_SIDE_POWERED_POSITIVE:
-                frontLeftDrive.setPower(powerLevel);
-                backLeftDrive.setPower(powerLevel);
-            case STRAFE_FORWARD_LEFT_POSITIVE:
-                frontRightDrive.setPower(powerLevel);
-                backLeftDrive.setPower(powerLevel);
-            case STRAFE_BACKWARD_LEFT_NEGATIVE:
-                frontRightDrive.setPower(-powerLevel);
-                backLeftDrive.setPower(-powerLevel);
-        }
-    }
-
-    void emptyMotors() {frontLeftDrive.setPower(0);backRightDrive.setPower(0);backLeftDrive.setPower(0);frontRightDrive.setPower(0);}
-
-    void frontLeftMotor(double powerLevel) {
-        frontLeftDrive.setPower(powerLevel/2);
-    }
-
-    void backLeftMotor(double powerLevel) {
-        backLeftDrive.setPower(powerLevel/2);
-    }
-
-    void frontRightMotor(double powerLevel) {
-        frontRightDrive.setPower(powerLevel/2);
-    }
-
-    void backRightMotor(double powerLevel) {
-        backRightDrive.setPower(powerLevel/2);
-    }
-
-    void allMotors(double powerLevel) {
-        backLeftDrive.setPower(powerLevel/2);
-        backRightDrive.setPower(powerLevel/2);
-        frontLeftDrive.setPower(powerLevel/2);
-        frontRightDrive.setPower(powerLevel/2);
+        drive = new RobotDrive(map);
     }
 }
