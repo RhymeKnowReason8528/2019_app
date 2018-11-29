@@ -1,18 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
+//import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+//import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class Robot{
     ElapsedTime runtime = new ElapsedTime();
 
-    private BNO055IMU imu;
-    private Orientation orientation = new Orientation(); //gyro
+    /*private BNO055IMU imu;
+    private Orientation orientation = new Orientation(); */
 
     RobotDrive drive;
 
