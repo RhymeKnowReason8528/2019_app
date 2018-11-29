@@ -12,7 +12,7 @@ public class Robot{
     ElapsedTime runtime = new ElapsedTime();
 
     /*private BNO055IMU imu;
-    private Orientation orientation = new Orientation(); */
+    private Orientation orientation = new Orientation(); // for gyro */
 
     RobotDrive drive;
 
