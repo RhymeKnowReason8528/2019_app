@@ -54,19 +54,19 @@ class RobotDrive {
         }
     }
 
-    void leftSide(double powerLevel) {
+    /*void leftSide(double powerLevel) {
         if (AllowInput) {
             backLeftDrive.setPower(powerLevel / 2);
             frontLeftDrive.setPower(powerLevel / 2);
         }
-    }
+    }*/
 
-    void rightSide(double powerLevel) {
+    /*void rightSide(double powerLevel) {
         if (AllowInput) {
             backRightDrive.setPower(powerLevel / 2);
             frontRightDrive.setPower(powerLevel / 2);
         }
-    }
+    }*/
 
     void undeterminedTurnRight(double powerLevel) {
         if (AllowInput) {

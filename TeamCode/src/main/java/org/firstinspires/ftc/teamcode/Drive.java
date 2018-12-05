@@ -33,8 +33,28 @@ public class Drive extends LinearOpMode {
             //End of Dpad Controls -----------------------------------------------------------------
 
             //Joystick Controls --------------------------------------------------------------------
-            robot.drive.leftSide(gamepad1.left_stick_y);
-            robot.drive.rightSide(gamepad1.right_stick_y);
+            //Left Joystick
+            if (Math.abs(gamepad1.left_stick_y) > Math.abs(gamepad1.left_stick_x)) {
+                //move forward or backward
+                robot.drive.allMotors(gamepad1.left_stick_y);
+            } else if (Math.abs(gamepad1.left_stick_y) < Math.abs(gamepad1.left_stick_x)) {
+                //strafe
+                robot.drive.backLeftMotor(-gamepad1.left_stick_x);
+                robot.drive.backRightMotor(gamepad1.left_stick_x);
+                robot.drive.frontLeftMotor(gamepad1.left_stick_x);
+                robot.drive.frontRightMotor(-gamepad1.left_stick_x);
+            }
+            //Right Joystick
+            if (Math.abs(gamepad1.right_stick_y) > Math.abs(gamepad1.right_stick_x)) {
+                //move forward or backward
+                robot.drive.allMotors(gamepad1.right_stick_y);
+            } else if (Math.abs(gamepad1.right_stick_y) < Math.abs(gamepad1.right_stick_x)) {
+                //strafe
+                robot.drive.backLeftMotor(-gamepad1.right_stick_x);
+                robot.drive.backRightMotor(gamepad1.right_stick_x);
+                robot.drive.frontLeftMotor(gamepad1.right_stick_x);
+                robot.drive.frontRightMotor(-gamepad1.right_stick_x);
+            }
             //End of Joystick Controls -------------------------------------------------------------
 
             //Trigger Controls ---------------------------------------------------------------------
