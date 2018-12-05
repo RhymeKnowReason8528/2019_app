@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class Drive extends LinearOpMode {
     @Override
     public void runOpMode() {
+        boolean autoDriveHold = false;
 
         Robot robot = new Robot(hardwareMap);
         waitForStart();
         robot.runtime.reset();
 
-        //boolean AutoDrive; TODO: Add this functionality now
         while (opModeIsActive()) {
             robot.drive.emptyMotors();
 
@@ -41,6 +41,16 @@ public class Drive extends LinearOpMode {
             robot.drive.undeterminedTurnLeft(gamepad1.left_trigger);
             robot.drive.undeterminedTurnRight(gamepad1.right_trigger);
             //End of Trigger Controls --------------------------------------------------------------
+
+            //Auto drive Controls ------------------------------------------------------------------
+            if (!autoDriveHold && gamepad1.y) {
+                autoDriveHold = true;
+                robot.drive.disable();
+            } else if (autoDriveHold && gamepad1.y) {
+                autoDriveHold = false;
+                robot.drive.enable();
+            }
+            //End of Auto drive Controls -----------------------------------------------------------
 
             telemetry.addData("Runtime: ", robot.runtime);
             telemetry.update();

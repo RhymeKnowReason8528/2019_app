@@ -10,6 +10,8 @@ class RobotDrive {
     private DcMotor backLeftDrive;
     private DcMotor backRightDrive;
 
+    private boolean AllowInput;
+
     RobotDrive(HardwareMap map) {
         frontLeftDrive = map.dcMotor.get("front_left_drive");
         backLeftDrive = map.dcMotor.get("back_left_drive");
@@ -33,52 +35,62 @@ class RobotDrive {
         backRightDrive.setPower(0);
     }
 
-    void emptyMotors() {frontLeftDrive.setPower(0);backRightDrive.setPower(0);backLeftDrive.setPower(0);frontRightDrive.setPower(0);}
+    void emptyMotors() {if (AllowInput) {frontLeftDrive.setPower(0);backRightDrive.setPower(0);backLeftDrive.setPower(0);frontRightDrive.setPower(0);}}
 
-    void frontLeftMotor(double powerLevel) {
-        frontLeftDrive.setPower(powerLevel/2);
-    }
+    void frontLeftMotor(double powerLevel) {if (AllowInput) {frontLeftDrive.setPower(powerLevel/2);}}
 
-    void backLeftMotor(double powerLevel) {
-        backLeftDrive.setPower(powerLevel/2);
-    }
+    void backLeftMotor(double powerLevel) {if (AllowInput) {backLeftDrive.setPower(powerLevel/2);}}
 
-    void frontRightMotor(double powerLevel) {
-        frontRightDrive.setPower(powerLevel/2);
-    }
+    void frontRightMotor(double powerLevel) {if (AllowInput) {frontRightDrive.setPower(powerLevel/2);}}
 
-    void backRightMotor(double powerLevel) {
-        backRightDrive.setPower(powerLevel/2);
-    }
+    void backRightMotor(double powerLevel) {if (AllowInput) {backRightDrive.setPower(powerLevel/2);}}
 
     void allMotors(double powerLevel) {
-        backLeftDrive.setPower(powerLevel/2);
-        backRightDrive.setPower(powerLevel/2);
-        frontLeftDrive.setPower(powerLevel/2);
-        frontRightDrive.setPower(powerLevel/2);
+        if (AllowInput) {
+            backLeftDrive.setPower(powerLevel / 2);
+            backRightDrive.setPower(powerLevel / 2);
+            frontLeftDrive.setPower(powerLevel / 2);
+            frontRightDrive.setPower(powerLevel / 2);
+        }
     }
 
     void leftSide(double powerLevel) {
-        backLeftDrive.setPower(powerLevel/2);
-        frontLeftDrive.setPower(powerLevel/2);
+        if (AllowInput) {
+            backLeftDrive.setPower(powerLevel / 2);
+            frontLeftDrive.setPower(powerLevel / 2);
+        }
     }
 
     void rightSide(double powerLevel) {
-        backRightDrive.setPower(powerLevel/2);
-        frontRightDrive.setPower(powerLevel/2);
+        if (AllowInput) {
+            backRightDrive.setPower(powerLevel / 2);
+            frontRightDrive.setPower(powerLevel / 2);
+        }
     }
 
     void undeterminedTurnRight(double powerLevel) {
-        backLeftDrive.setPower(-powerLevel/2);
-        backRightDrive.setPower(powerLevel/2);
-        frontLeftDrive.setPower(-powerLevel/2);
-        frontRightDrive.setPower(powerLevel/2);
+        if (AllowInput) {
+            backLeftDrive.setPower(-powerLevel / 2);
+            backRightDrive.setPower(powerLevel / 2);
+            frontLeftDrive.setPower(-powerLevel / 2);
+            frontRightDrive.setPower(powerLevel / 2);
+        }
     }
 
     void undeterminedTurnLeft(double powerLevel) {
-        backLeftDrive.setPower(powerLevel/2);
-        backRightDrive.setPower(-powerLevel/2);
-        frontLeftDrive.setPower(powerLevel/2);
-        frontRightDrive.setPower(-powerLevel/2);
+        if (AllowInput) {
+            backLeftDrive.setPower(powerLevel / 2);
+            backRightDrive.setPower(-powerLevel / 2);
+            frontLeftDrive.setPower(powerLevel / 2);
+            frontRightDrive.setPower(-powerLevel / 2);
+        }
+    }
+
+    void disable() {
+        AllowInput = false;
+    }
+
+    void enable() {
+        AllowInput = true;
     }
 }
